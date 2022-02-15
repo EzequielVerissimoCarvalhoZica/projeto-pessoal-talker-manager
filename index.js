@@ -1,9 +1,32 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { listTalkers, listTalkerById, token } = require('./controllers');
-const { validateEmail, validatePassword } = require('./middlerware');
+const {
+  listTalkers,
+  listTalkerById,
+  token,
+  createTalker,
+} = require('./controllers');
+
+const {
+  validateEmail,
+  validatePassword,
+  validateDateAndRate,
+  validateWatchedAt,
+  validateRate,
+  validateAge,
+  validateName,
+  validateToken,
+} = require('./middlerware');
 
 const validateLogin = [validateEmail, validatePassword];
+const validateTalk = [
+  validateToken,
+  validateAge,
+  validateName,
+  validateDateAndRate,
+  validateWatchedAt,
+  validateRate,
+];
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,10 +36,12 @@ const PORT = '3000';
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
-  response.status(HTTP_OK_STATUS).send('teste');
+  response.status(HTTP_OK_STATUS).send('');
 });
 
 app.get('/talker', listTalkers);
+
+app.post('/talker', validateTalk, createTalker);
 
 app.get('/talker/:id', listTalkerById);
 

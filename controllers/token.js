@@ -1,8 +1,8 @@
 const crypto = require('crypto');
 
-module.exports = (req, res, next) => {
-  const token = crypto.randomBytes(8).toString('hex');
+module.exports = async (req, res, next) => {
   try {
+    const token = crypto.randomBytes(8).toString('hex');
     return res.status(200).json({ token });
   } catch (error) {
     return next(error);

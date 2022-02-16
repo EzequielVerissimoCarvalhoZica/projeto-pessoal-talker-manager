@@ -7,6 +7,7 @@ const {
   createTalker,
   editTalker,
   deleteTalker,
+  searchTalker,
 } = require('./controllers');
 
 const {
@@ -45,7 +46,7 @@ app.get('/talker', listTalkers);
 
 app.post('/talker', validateTalk, createTalker);
 
-app.get('/talker/search');
+app.get('/talker/search', validateToken, searchTalker);
 
 app.get('/talker/:id', listTalkerById);
 

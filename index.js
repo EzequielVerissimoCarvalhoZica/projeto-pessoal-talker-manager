@@ -43,7 +43,13 @@ app.get('/talker', listTalkers);
 
 app.post('/talker', validateTalk, createTalker);
 
+app.get('/talker/search');
+
 app.get('/talker/:id', listTalkerById);
+
+app.put('/talker/:id');
+
+app.delete('/talker/:id');
 
 app.post('/login', validateLogin, token);
 

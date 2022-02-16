@@ -5,6 +5,7 @@ const createTalker = require('./createTalker');
 const editTalker = require('./editTalker');
 const deleteTalker = require('./deleteTalker');
 const searchTalker = require('./searchTalker');
+const errorMiddle = require('./errorMiddle');
 
 module.exports = {
   listTalkers,
@@ -14,4 +15,5 @@ module.exports = {
   editTalker,
   deleteTalker,
   searchTalker,
+  errorMiddle,
 };

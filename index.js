@@ -8,6 +8,7 @@ const {
   editTalker,
   deleteTalker,
   searchTalker,
+  errorMiddle,
 } = require('./controllers');
 
 const {
@@ -42,19 +43,22 @@ app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send('');
 });
 
-app.get('/talker', listTalkers);
+app
+  .route('/talker')
+  .get(listTalkers)
+  .post(validateTalk, createTalker);
 
-app.post('/talker', validateTalk, createTalker);
+app.post('/login', validateLogin, token);
 
 app.get('/talker/search', validateToken, searchTalker);
 
-app.get('/talker/:id', listTalkerById);
+app
+  .route('/talker/:id')
+  .get(listTalkerById)
+  .put(validateTalk, editTalker)
+  .delete(validateToken, deleteTalker);
 
-app.put('/talker/:id', validateTalk, editTalker);
-
-app.delete('/talker/:id', validateToken, deleteTalker);
-
-app.post('/login', validateLogin, token);
+app.use(errorMiddle);
 
 app.listen(PORT, () => {
   console.log('Online');

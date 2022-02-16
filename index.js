@@ -6,6 +6,7 @@ const {
   token,
   createTalker,
   editTalker,
+  deleteTalker,
 } = require('./controllers');
 
 const {
@@ -50,7 +51,7 @@ app.get('/talker/:id', listTalkerById);
 
 app.put('/talker/:id', validateTalk, editTalker);
 
-app.delete('/talker/:id');
+app.delete('/talker/:id', validateToken, deleteTalker);
 
 app.post('/login', validateLogin, token);
 
